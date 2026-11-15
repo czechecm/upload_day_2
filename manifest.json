@@ -1,0 +1,21 @@
+{
+    "name": "upload_day_2",
+    "version": "0.0.0",
+    "licenseMap": {},
+    "status": 101,
+    "indexHtml": "index.html",
+    "sordTypeIcons": true,
+    "archiveIcons": true,
+    "src": "src/",
+    "dist": "dist/",
+    "indexHtmlPath": ".",
+    "namespace": "cecm",
+    "id": "upload_day_2",
+    "defaultLanguage": "de",
+    "build": 1,
+    "useEloSession": true,
+    "devRedirect": "http://localhost:5173",
+    "supportedLocales": [
+        "de"
+    ]
+}

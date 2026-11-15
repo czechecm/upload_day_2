@@ -1,0 +1,18 @@
+{
+    "manifest": {
+        "indexHtml": "index.html",
+        "src": "src/",
+        "dist": "dist/",
+        "namespace": "cecm",
+        "defaultLanguage": "de",
+        "wfUrl": "http://czechecm:9090/ix-CzechECM/plugin/de.elo.ix.plugin.proxy/wf/"
+    },
+    "ixLogin": {
+        "adminName": "Administrator",
+        "adminPw": {
+            "iv": "49f6e7ee2970bd1a04f71c135c048552",
+            "content": "cb70a4"
+        }
+    },
+    "ixUrl": "http://czechecm:9090/ix-CzechECM/ix"
+}
