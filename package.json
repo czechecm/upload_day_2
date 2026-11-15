@@ -17,10 +17,13 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
+    "@elo/elo-base-lib": "^25.0.7",
+    "@elo/ix-client-typescript": "^25.0.8",
     "element-plus": "^2.14.8",
     "vue": "^3.5.42"
   },
   "devDependencies": {
+    "@elo/elo-cli": "^1.0.10",
     "@playwright/test": "^1.63.0",
     "@tsconfig/node24": "^24.0.5",
     "@types/jsdom": "^30.0.0",
