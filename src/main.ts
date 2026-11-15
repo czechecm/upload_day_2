@@ -3,6 +3,7 @@ import { initEloBaseServices, ixService, logger } from '@elo/elo-base-lib'
 import { LockC, EditInfoC } from '@elo/ix-client-typescript'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import './jsLocales/all_locales'
 import App from './App.vue'
 
 // Initialize the elo base services
