@@ -1,0 +1,69 @@
+/* Globale Styles der App – gemeinsame Karten-Optik für alle Panels */
+:root {
+  /* ELO-Orange als Primärfarbe für alle Element-Plus-Komponenten.
+     Quelle: Logo auf www.elo.com (logo_elo.svg, fill="#f59c00").
+     Abstufungen nach dem Element-Plus-Schema: light-N = N×10 % Weiß, dark-2 = 20 % Schwarz beigemischt. */
+  --el-color-primary: #f59c00;
+  --el-color-primary-light-3: #f8ba4d;
+  --el-color-primary-light-5: #face80;
+  --el-color-primary-light-7: #fce1b3;
+  --el-color-primary-light-8: #fdebcc;
+  --el-color-primary-light-9: #fef5e6;
+  --el-color-primary-dark-2: #c47d00;
+  --app-primary-rgb: 245, 156, 0;
+
+  --app-bg: #faf7f2;
+  --app-radius: 14px;
+  --app-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 4px 16px rgba(16, 24, 40, 0.06);
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--app-bg);
+  color: var(--el-text-color-primary);
+  font-family: 'ELO Sans Pro', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Karten */
+.panel.el-card {
+  border-radius: var(--app-radius);
+  border: 1px solid var(--el-border-color-lighter);
+  box-shadow: var(--app-shadow);
+}
+
+.panel .el-card__header {
+  padding: 14px 20px;
+}
+
+.panel .el-card__body {
+  padding: 16px 20px 20px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.panel-title .el-icon {
+  font-size: 18px;
+  color: var(--el-color-primary);
+}

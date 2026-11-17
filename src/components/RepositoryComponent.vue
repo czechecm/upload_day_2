@@ -2,7 +2,7 @@
 import { ref, onMounted, nextTick } from 'vue'
 import type { TreeNodeData, TreeKey, TreeData, TreeNode, ElTreeV2 } from 'element-plus'
 import { logger } from '@elo/elo-base-lib';
-import { Document, Folder, FolderOpened } from '@element-plus/icons-vue'
+import { Collection, Document, Folder, FolderOpened } from '@element-plus/icons-vue'
 import { useRepository } from '@/composable/useRepository';
 
 const { getInitRepo, getChildren, getArchiveName } = useRepository()
@@ -39,10 +39,6 @@ interface EloNode {
 
 const handleNodeExpand = async (data: TreeNodeData, node: TreeNode) => {
   logger.info("data: " + data.label + " node: " + (node as EloNode).label)
-  const archiveName = await getArchiveName()
-  if ((node as EloNode).label === archiveName) {
-    treeHeight.value = ((node as EloNode).children?.length ?? 1) * 20
-  }
   if (!data.isLeaf && data.children.length === 0) {
     const newChildren = await getChildren(data.id)
     data.children = newChildren ?? []
@@ -87,12 +83,8 @@ const getParentIdsToOpen = async (name: string, id: number, folder: string, sear
   }
 }
 
-const handleNodeCollapse = async (data: TreeNodeData, node: TreeNode) => {
+const handleNodeCollapse = (data: TreeNodeData, node: TreeNode) => {
   logger.info('[UploadDoc] handleNodeCollapse', (node as EloNode).label)
-  const archiveName = await getArchiveName()
-  if ((node as EloNode).label === archiveName) {
-    treeHeight.value = 30
-  }
 }
 
 /** Liefert den Pfad (Wurzel … Zielknoten) zum Knoten mit der angegebenen Id. */
@@ -140,26 +132,66 @@ const addNode = async (node: TreeNodeData, parentKey: TreeKey) => {
 
 defineExpose({ addNode })
 
-const treeHeight = ref(30)
+/** Feste Höhe des virtualisierten Baums (el-tree-v2 benötigt einen Pixelwert) */
+const TREE_HEIGHT = 560
 </script>
 
 <template>
-  <h2>RepositoryComponent</h2>
-  <el-tree-v2 ref="treeRef" :data="repositoryData" :height="treeHeight" highlight-current @node-expand="handleNodeExpand"
-    @node-collapse="handleNodeCollapse" @node-click="handleNodeClick" class="custom-tree">
-    <template #default="{ node }">
-      <el-icon class="node-icon" :class="{ 'is-leaf': node.isLeaf }">
-        <Document v-if="node.isLeaf && !node.data.children" />
-        <Folder v-else-if="!node.expanded" />
-        <FolderOpened v-else />
-      </el-icon>
-      <span>{{ node.label }}</span>
+  <el-card class="panel" shadow="never">
+    <template #header>
+      <div class="panel-header">
+        <div class="panel-title">
+          <el-icon><Collection /></el-icon>
+          <span>Repository</span>
+        </div>
+        <el-tag v-if="archiveName" size="small" type="info" effect="plain" round>{{ archiveName }}</el-tag>
+      </div>
     </template>
-  </el-tree-v2>
+
+    <el-tree-v2 ref="treeRef" :data="repositoryData" :height="TREE_HEIGHT" :item-size="34" highlight-current
+      @node-expand="handleNodeExpand" @node-collapse="handleNodeCollapse" @node-click="handleNodeClick"
+      class="custom-tree">
+      <template #default="{ node }">
+        <el-icon class="node-icon" :class="{ 'is-leaf': node.isLeaf && !node.data.children }">
+          <Document v-if="node.isLeaf && !node.data.children" />
+          <Folder v-else-if="!node.expanded" />
+          <FolderOpened v-else />
+        </el-icon>
+        <span class="node-label" :title="node.label">{{ node.label }}</span>
+      </template>
+    </el-tree-v2>
+  </el-card>
 </template>
 <style scoped>
+.custom-tree {
+  --el-tree-node-hover-bg-color: var(--el-fill-color-light);
+}
+
+.custom-tree :deep(.el-tree-node__content) {
+  border-radius: 8px;
+  margin: 0 2px;
+}
+
+.custom-tree :deep(.el-tree-node.is-current > .el-tree-node__content) {
+  background-color: var(--el-color-primary-light-9);
+  color: var(--el-color-primary);
+  font-weight: 600;
+}
+
 .node-icon {
-  margin-right: 5px;
+  flex-shrink: 0;
+  margin-right: 8px;
+  font-size: 16px;
   color: var(--el-color-warning);
+}
+
+.node-icon.is-leaf {
+  color: var(--el-text-color-secondary);
+}
+
+.node-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 </style>
