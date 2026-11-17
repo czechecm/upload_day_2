@@ -3,8 +3,9 @@ import { logger } from '@elo/elo-base-lib'
 import { type Ref, ref } from 'vue'
 import type { UploadUserFile, UploadRequestOptions, ElUpload, TreeNodeData } from 'element-plus'
 import { ElMessageBox } from 'element-plus' //'element-plus/lib' nicht verwenden (CommonJS)
+import { useUpload } from '@/composable/useUpload';
 
-import { uploadDocument } from '@/composable/useUpload'
+const { uploadDocument } = useUpload()
 
 const fileList: Ref<UploadUserFile[]> = ref<UploadUserFile[]>([])
 
