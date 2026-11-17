@@ -42,8 +42,8 @@ const customUpload = async (options: UploadRequestOptions) => {
     return
   }
 
-  let parentId: number = props.selectedTreeNode?.id ?? 0
-  parentId = 677
+  const parentId: number = props.selectedTreeNode?.id ?? 0
+
   const documentId = await uploadDocument(options.file as File, parentId)
   if (documentId === undefined) {
     logger.warn(`[UploadDoc] customUpload() documentId is undefined, upload failed`)
