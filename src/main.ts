@@ -10,7 +10,6 @@ import App from './App.vue'
 try {
   await initEloBaseServices() // perform redirect to ELO login if not authenticated.
 
-  //Homework Ajax-Call für den Upload
   // --- example call to ix: checkout root repository folder.
   const sord = await ixService.callIxEndpoint('checkoutSord', {
     objId: '1',

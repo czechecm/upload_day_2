@@ -1,11 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import HistoryComponent from './components/HistoryComponent.vue';
+import RepositoryComponent from './components/RepositoryComponent.vue';
+import UploadComponent from './components/UploadComponent.vue';
+
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <h1>ELO Upload</h1>
+  <RepositoryComponent></RepositoryComponent>
+  <UploadComponent></UploadComponent>
+  <HistoryComponent></HistoryComponent>
 </template>
 
 <style scoped></style>
